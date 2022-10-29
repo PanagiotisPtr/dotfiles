@@ -16,7 +16,7 @@ return require('packer').startup(function(use)
     use 'ThePrimeagen/vim-be-good'
 
     use {
-        'nvim-treesitter/nvim-treesitter',run = ':TSUpdate',
+        'nvim-treesitter/nvim-treesitter', run = ':TSUpdate',
     }
 
     use 'nvim-treesitter/nvim-treesitter-refactor'
@@ -41,5 +41,8 @@ return require('packer').startup(function(use)
     use 'williamboman/mason.nvim'
     use 'williamboman/mason-lspconfig.nvim'
 
+    use {
+        "windwp/nvim-autopairs",
+        config = function() require("nvim-autopairs").setup {} end
+    }
 end)
-

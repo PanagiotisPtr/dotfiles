@@ -13,7 +13,7 @@ require('telescope').setup({
     },
 })
 
-require'nvim-treesitter.configs'.setup {
+require 'nvim-treesitter.configs'.setup {
     ensure_installed = { 'go', 'typescript', 'javascript', 'json', 'yaml', 'lua' },
 
     sync_install = false,
@@ -55,8 +55,8 @@ require('lualine').setup {
     options = {
         icons_enabled = true,
         theme = 'nightfly',
-        component_separators = { left = ' ', right = ' '},
-        section_separators = { left = ' ', right = ' '},
+        component_separators = { left = ' ', right = ' ' },
+        section_separators = { left = ' ', right = ' ' },
         disabled_filetypes = {
             statusline = {},
             winbar = {},
@@ -71,18 +71,18 @@ require('lualine').setup {
         }
     },
     sections = {
-        lualine_a = {'mode'},
-        lualine_b = {'branch', 'diff', 'diagnostics'},
-        lualine_c = {'filename'},
-        lualine_x = {'encoding', 'fileformat', 'filetype'},
-        lualine_y = {'progress'},
-        lualine_z = {'location'}
+        lualine_a = { 'mode' },
+        lualine_b = { 'branch', 'diff', 'diagnostics' },
+        lualine_c = { 'filename' },
+        lualine_x = { 'encoding', 'fileformat', 'filetype' },
+        lualine_y = { 'progress' },
+        lualine_z = { 'location' }
     },
     inactive_sections = {
         lualine_a = {},
         lualine_b = {},
-        lualine_c = {'filename'},
-        lualine_x = {'location'},
+        lualine_c = { 'filename' },
+        lualine_x = { 'location' },
         lualine_y = {},
         lualine_z = {}
     },
@@ -92,7 +92,8 @@ require('lualine').setup {
     extensions = {}
 }
 
-local cmp = require'cmp'
+local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+local cmp = require 'cmp'
 
 cmp.setup({
     snippet = {
@@ -113,17 +114,22 @@ cmp.setup({
         { name = 'luasnip' },
         { name = 'path' },
     }, {
-            { name = 'buffer' },
-        })
+        { name = 'buffer' },
+    })
 })
+
+cmp.event:on(
+    'confirm_done',
+    cmp_autopairs.on_confirm_done()
+)
 
 -- Set configuration for specific filetype.
 cmp.setup.filetype('gitcommit', {
     sources = cmp.config.sources({
         { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
     }, {
-            { name = 'buffer' },
-        })
+        { name = 'buffer' },
+    })
 })
 
 -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
@@ -140,8 +146,8 @@ cmp.setup.cmdline(':', {
     sources = cmp.config.sources({
         { name = 'path' }
     }, {
-            { name = 'cmdline' }
-        })
+        { name = 'cmdline' }
+    })
 })
 
 -- lsp stuff
@@ -161,7 +167,7 @@ lsp_defaults.capabilities = vim.tbl_deep_extend(
 
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-local opts = { noremap=true, silent=true }
+local opts = { noremap = true, silent = true }
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
@@ -175,7 +181,7 @@ local on_attach = function(client, bufnr)
 
     -- Mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
-    local bufopts = { noremap=true, silent=true, buffer=bufnr }
+    local bufopts = { noremap = true, silent = true, buffer = bufnr }
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
@@ -221,7 +227,7 @@ local org_imports = function()
     for _, client in pairs(clients) do
 
         local params = vim.lsp.util.make_range_params(nil, client.offset_encoding)
-        params.context = {only = {"source.organizeImports"}}
+        params.context = { only = { "source.organizeImports" } }
 
         local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, 5000)
         for _, res in pairs(result or {}) do

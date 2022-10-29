@@ -22,4 +22,4 @@ vim.g.mapleader = " "
 vim.opt.backup = false
 vim.opt.writebackup = false
 
-vim.opt.laststatus = 2
+vim.opt.completeopt = {'menu', 'menuone', 'noselect'}

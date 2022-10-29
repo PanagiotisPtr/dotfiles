@@ -5,8 +5,6 @@ local telescopeBuilin = require('telescope.builtin')
 
 nnoremap('<leader>pv', '<cmd>Ex<CR>')
 
-inoremap('jj', '<Esc>')
-
 -- telescope
 nnoremap('<leader>ff', telescopeBuilin.find_files, {})
 nnoremap('<leader>fg', telescopeBuilin.live_grep, {})

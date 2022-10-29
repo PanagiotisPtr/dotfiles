@@ -14,10 +14,12 @@ vim.opt.smartindent = true
 
 vim.opt.wrap = false
 
-vim.opt.updatetime = 300
+vim.opt.updatetime = 50
 vim.opt.signcolumn = "yes"
 
 vim.g.mapleader = " "
 
 vim.opt.backup = false
 vim.opt.writebackup = false
+
+vim.opt.laststatus = 2

@@ -6,6 +6,8 @@ local telescopeBuilin = require('telescope.builtin')
 
 nnoremap('<C-d>', '<C-d>zz')
 nnoremap('<C-u>', '<C-u>zz')
+nnoremap('n', 'nzzzv')
+nnoremap('N', 'Nzzzv')
 
 nnoremap('<leader>pv', '<cmd>Ex<CR>')
 -- go to definition in new window to the right

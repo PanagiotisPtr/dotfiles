@@ -4,6 +4,9 @@ local vnoremap = require('panagiotisptr.keymap').vnoremap
 
 local telescopeBuilin = require('telescope.builtin')
 
+nnoremap('<C-d>', '<C-d>zz')
+nnoremap('<C-u>', '<C-u>zz')
+
 nnoremap('<leader>pv', '<cmd>Ex<CR>')
 -- go to definition in new window to the right
 nnoremap('gw', function()

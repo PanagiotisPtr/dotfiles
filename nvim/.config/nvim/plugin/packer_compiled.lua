@@ -104,6 +104,21 @@ _G.packer_plugins = {
     path = "/Users/panagiotispetridis/.local/share/nvim/site/pack/packer/start/cmp_luasnip",
     url = "https://github.com/saadparwaiz1/cmp_luasnip"
   },
+  ["copilot.vim"] = {
+    loaded = true,
+    path = "/Users/panagiotispetridis/.local/share/nvim/site/pack/packer/start/copilot.vim",
+    url = "https://github.com/github/copilot.vim"
+  },
+  ["emmet-vim"] = {
+    loaded = true,
+    path = "/Users/panagiotispetridis/.local/share/nvim/site/pack/packer/start/emmet-vim",
+    url = "https://github.com/mattn/emmet-vim"
+  },
+  harpoon = {
+    loaded = true,
+    path = "/Users/panagiotispetridis/.local/share/nvim/site/pack/packer/start/harpoon",
+    url = "https://github.com/ThePrimeagen/harpoon"
+  },
   ["lualine.nvim"] = {
     loaded = true,
     path = "/Users/panagiotispetridis/.local/share/nvim/site/pack/packer/start/lualine.nvim",

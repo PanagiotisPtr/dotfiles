@@ -50,4 +50,14 @@ return require('packer').startup(function(use)
     use 'mfussenegger/nvim-dap'
     use 'leoluz/nvim-dap-go'
     use { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } }
+
+    -- copilot
+    use 'github/copilot.vim'
+
+    -- emmet
+    use 'mattn/emmet-vim'
+
+    -- harpoon
+    use 'ThePrimeagen/harpoon'
 end)
+

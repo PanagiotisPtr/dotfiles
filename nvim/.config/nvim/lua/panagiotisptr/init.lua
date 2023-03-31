@@ -18,7 +18,7 @@ require('dap-go').setup()
 require("dapui").setup()
 
 require 'nvim-treesitter.configs'.setup {
-    ensure_installed = { 'go', 'typescript', 'javascript', 'json', 'yaml', 'lua' },
+    ensure_installed = { 'go', 'typescript', 'javascript', 'json', 'yaml', },
 
     sync_install = false,
 
@@ -157,7 +157,7 @@ cmp.setup.cmdline(':', {
 -- lsp stuff
 require('mason').setup()
 require('mason-lspconfig').setup({
-    ensure_installed = { 'sumneko_lua', 'gopls' }
+    ensure_installed = { 'gopls', 'rust_analyzer' }
 })
 
 local lspconfig = require('lspconfig')
@@ -219,10 +219,10 @@ local lsp_flags = {
     debounce_text_changes = 150,
 }
 
-lspconfig.sumneko_lua.setup({
+lspconfig.gopls.setup({
     on_attach = on_attach,
 })
-lspconfig.gopls.setup({
+lspconfig.rust_analyzer.setup({
     on_attach = on_attach,
 })
 

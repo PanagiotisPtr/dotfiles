@@ -8,6 +8,7 @@ nnoremap('<C-d>', '<C-d>zz')
 nnoremap('<C-u>', '<C-u>zz')
 nnoremap('n', 'nzzzv')
 nnoremap('N', 'Nzzzv')
+nnoremap('<leader>vb', 'va{V')
 
 nnoremap('<leader>pv', '<cmd>Ex<CR>')
 -- go to definition in new window to the right
@@ -23,6 +24,12 @@ nnoremap('<leader>df', function()
     vim.cmd('normal dap')
 end)
 
+-- delete entire function (must be on the function definition line)
+nnoremap('<leader>sf', function()
+    vim.cmd('normal di{')
+    vim.cmd('normal dap')
+end)
+
 -- telescope
 nnoremap('<leader>ff', telescopeBuilin.find_files, {})
 nnoremap('<leader>fg', telescopeBuilin.live_grep, {})
@@ -33,4 +40,11 @@ nnoremap('<leader>ic', telescopeBuilin.lsp_incoming_calls, {})
 nnoremap('<leader>rf', telescopeBuilin.lsp_references, {})
 vnoremap('<leader>y', '"*yy')
 
+-- the code below is broken, I'll fix it one day
+--[[
+nnoremap('<leader>a', require("harpoon.mark").add_file(), {})
+nnoremap('<leader>l', require("harpoon.ui").toggle_quick_menu(), {})
+nnoremap('<leader>f', require("harpoon.ui").nav_prev(), {})
+nnoremap('<leader>j', require("harpoon.ui").nav_next(), {})
+--]]
 

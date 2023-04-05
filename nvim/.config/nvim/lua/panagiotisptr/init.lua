@@ -225,11 +225,32 @@ lspconfig.gopls.setup({
 lspconfig.rust_analyzer.setup({
     on_attach = on_attach,
 })
+lspconfig.tsserver.setup({
+    on_attach = on_attach,
+    filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
+    -- I wish the code below worked...
+    --[[
+    prefrences = {
+        quotePreference = "double",
+    },
+    settings = {
+        documentformatting = true,
+    },
+    --]]
+})
+lspconfig.emmet_ls.setup({
+    on_attach = on_attach,
+})
+lspconfig.jsonls.setup({
+    on_attach = on_attach,
+})
+lspconfig.lua_ls.setup({
+    on_attach = on_attach,
+})
 
 local org_imports = function()
     local clients = vim.lsp.buf_get_clients()
     for _, client in pairs(clients) do
-
         local params = vim.lsp.util.make_range_params(nil, client.offset_encoding)
         params.context = { only = { "source.organizeImports" } }
 

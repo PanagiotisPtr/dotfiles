@@ -37,7 +37,10 @@ require 'nvim-treesitter.configs'.setup {
             clear_on_cursor_move = true,
         },
         smart_rename = {
-            enable = false,
+            enable = true,
+            keymaps = {
+                smart_rename = 'grr',
+            },
         },
         navigation = {
             enable = true,
@@ -185,8 +188,8 @@ local on_attach = function(client, bufnr)
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-    vim.keymap.set('n', 'grr', vim.lsp.buf.rename, bufopts)
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
     vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
     vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
     vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
@@ -196,6 +199,7 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
     vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
     vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
+    vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
     vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 
     if client.supports_method("textDocument/formatting") then
@@ -223,7 +227,7 @@ lspconfig.rust_analyzer.setup({
 })
 lspconfig.tsserver.setup({
     on_attach = on_attach,
-    filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
+    filetypes = { "typescript", "typescriptreact", "typescript.tsx", "javascript", "javascriptreact", "javascript.jsx" },
     -- I wish the code below worked...
     --[[
     prefrences = {
@@ -242,6 +246,25 @@ lspconfig.jsonls.setup({
 })
 lspconfig.lua_ls.setup({
     on_attach = on_attach,
+})
+lspconfig.cssls.setup({
+    on_attach = on_attach,
+})
+lspconfig.tailwindcss.setup({
+    on_attach = on_attach,
+})
+lspconfig.ocamllsp.setup({
+    on_attach = on_attach,
+})
+lspconfig.jdtls.setup({
+    on_attach = on_attach,
+    settings = {
+        java = {
+            format = {
+                settings = { url = "~/.config/nvim/lua/panagiotisptr/jdtls_settings.xml" }
+            }
+        }
+    }
 })
 
 local org_imports = function()
@@ -267,3 +290,9 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     pattern = { "*.go" },
     callback = org_imports,
 })
+
+local jdtlsConfig = {
+    cmd = { "~/jdtls/bin/jdtls" },
+    root_dir = vim.fs.dirname(vim.fs.find({ 'gradlew', '.git', 'mvnw' }, { upward = true })[1]),
+}
+require('jdtls').start_or_attach(jdtlsConfig)

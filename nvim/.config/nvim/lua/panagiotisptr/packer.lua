@@ -55,7 +55,7 @@ return require('packer').startup(function(use)
     use { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } }
 
     -- copilot
-    use 'github/copilot.vim'
+    -- use 'github/copilot.vim'
 
     -- emmet
     use 'mattn/emmet-vim'
@@ -65,5 +65,7 @@ return require('packer').startup(function(use)
 
     -- auto tags
     use 'windwp/nvim-ts-autotag'
-end)
 
+    -- Java LSP (JDTLS)
+    use 'mfussenegger/nvim-jdtls'
+end)

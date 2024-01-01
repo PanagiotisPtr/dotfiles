@@ -65,7 +65,4 @@ return require('packer').startup(function(use)
 
     -- auto tags
     use 'windwp/nvim-ts-autotag'
-
-    -- Java LSP (JDTLS)
-    use 'mfussenegger/nvim-jdtls'
 end)

@@ -18,7 +18,7 @@ require('dap-go').setup()
 require("dapui").setup()
 
 require 'nvim-treesitter.configs'.setup {
-    ensure_installed = { 'go', 'typescript', 'javascript', 'json', 'yaml', },
+    ensure_installed = { 'go', 'typescript', 'javascript', 'json', 'yaml', 'typescript', 'java' },
 
     sync_install = false,
 
@@ -290,9 +290,3 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     pattern = { "*.go" },
     callback = org_imports,
 })
-
-local jdtlsConfig = {
-    cmd = { "~/jdtls/bin/jdtls" },
-    root_dir = vim.fs.dirname(vim.fs.find({ 'gradlew', '.git', 'mvnw' }, { upward = true })[1]),
-}
-require('jdtls').start_or_attach(jdtlsConfig)

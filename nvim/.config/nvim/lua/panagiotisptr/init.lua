@@ -157,7 +157,7 @@ cmp.setup.cmdline(':', {
 -- lsp stuff
 require('mason').setup()
 require('mason-lspconfig').setup({
-    ensure_installed = { 'gopls', 'rust_analyzer' }
+    ensure_installed = { 'gopls', 'rust_analyzer', 'jdtls', 'tsserver', 'eslint' }
 })
 
 local lspconfig = require('lspconfig')
@@ -202,7 +202,7 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
     vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 
-    if client.supports_method("textDocument/formatting") then
+    if client.name ~= "tsserver" and client.supports_method("textDocument/formatting") then
         vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
         vim.api.nvim_create_autocmd("BufWritePre", {
             group = augroup,
@@ -228,15 +228,10 @@ lspconfig.rust_analyzer.setup({
 lspconfig.tsserver.setup({
     on_attach = on_attach,
     filetypes = { "typescript", "typescriptreact", "typescript.tsx", "javascript", "javascriptreact", "javascript.jsx" },
-    -- I wish the code below worked...
-    --[[
-    prefrences = {
-        quotePreference = "double",
-    },
-    settings = {
-        documentformatting = true,
-    },
-    --]]
+})
+lspconfig.eslint.setup({
+    on_attach = on_attach,
+    filetypes = { "typescript", "typescriptreact", "typescript.tsx", "javascript", "javascriptreact", "javascript.jsx" },
 })
 lspconfig.emmet_ls.setup({
     on_attach = on_attach,
@@ -258,13 +253,6 @@ lspconfig.ocamllsp.setup({
 })
 lspconfig.jdtls.setup({
     on_attach = on_attach,
-    settings = {
-        java = {
-            format = {
-                settings = { url = "~/.config/nvim/lua/panagiotisptr/jdtls_settings.xml" }
-            }
-        }
-    }
 })
 
 local org_imports = function()
@@ -289,4 +277,10 @@ end
 vim.api.nvim_create_autocmd("BufWritePre", {
     pattern = { "*.go" },
     callback = org_imports,
+})
+
+vim.api.nvim_create_autocmd('BufWritePre', {
+    pattern = { '*.tsx', '*.ts', '*.jsx', '*.js' },
+    command = 'silent! EslintFixAll',
+    group = vim.api.nvim_create_augroup('MyAutocmdsJavaScripFormatting', {}),
 })

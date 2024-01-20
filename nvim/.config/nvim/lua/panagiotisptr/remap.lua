@@ -38,7 +38,6 @@ nnoremap('<leader>ws', telescopeBuilin.lsp_dynamic_workspace_symbols, {})
 nnoremap('<leader>ds', telescopeBuilin.lsp_document_symbols, {})
 nnoremap('<leader>ic', telescopeBuilin.lsp_incoming_calls, {})
 nnoremap('<leader>rf', telescopeBuilin.lsp_references, {})
-nnoremap('<leader>im', telescopeBuilin.lsp_implementations, {})
 vnoremap('<leader>y', '"*yy')
 
 -- the code below is broken, I'll fix it one day
@@ -48,3 +47,4 @@ nnoremap('<leader>l', require("harpoon.ui").toggle_quick_menu(), {})
 nnoremap('<leader>f', require("harpoon.ui").nav_prev(), {})
 nnoremap('<leader>j', require("harpoon.ui").nav_next(), {})
 --]]
+

@@ -157,7 +157,7 @@ cmp.setup.cmdline(':', {
 -- lsp stuff
 require('mason').setup()
 require('mason-lspconfig').setup({
-    ensure_installed = { 'gopls', 'rust_analyzer', 'jdtls', 'tsserver', 'eslint' }
+    ensure_installed = { 'gopls', 'rust_analyzer', 'tsserver', 'jdtls', 'eslint' }
 })
 
 local lspconfig = require('lspconfig')
@@ -251,9 +251,29 @@ lspconfig.tailwindcss.setup({
 lspconfig.ocamllsp.setup({
     on_attach = on_attach,
 })
+
+-- START JDTLS NONSENSE
+local lsp_ext = require('panagiotisptr.lsp-ext')
+local function on_init(client, _)
+    lsp_ext.setup(client)
+end
 lspconfig.jdtls.setup({
+    handlers = {
+        ['textDocument/declaration'] = lsp_ext.location_callback(true),
+        ['textDocument/definition'] = lsp_ext.location_callback(true),
+        ['textDocument/typeDefinition'] = lsp_ext.location_callback(true),
+        ['textDocument/implementation'] = lsp_ext.location_callback(true),
+        ['textDocument/references'] = lsp_ext.location_callback(false),
+    },
+    on_init = on_init,
     on_attach = on_attach,
+    init_options = {
+        extendedClientCapabilities = {
+            classFileContentsSupport = true
+        }
+    },
 })
+--- END JDTLS NONSENSE
 
 local org_imports = function()
     local clients = vim.lsp.buf_get_clients()

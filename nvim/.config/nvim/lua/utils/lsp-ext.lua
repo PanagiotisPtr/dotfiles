@@ -121,9 +121,8 @@ function M.setup(client)
     if completion_triggers and #completion_triggers > 0 then
         table.insert(on_insert_with_pause, { completion_triggers, trigger_completion })
     end
-    api.nvim_command("autocmd InsertCharPre * lua require'lsp-ext'._InsertCharPre()")
-    api.nvim_command("autocmd InsertLeave * lua require'lsp-ext'._InsertLeave()")
+    api.nvim_command("autocmd InsertCharPre * lua require('utils.lsp-ext')._InsertCharPre()")
+    api.nvim_command("autocmd InsertLeave * lua require('utils.lsp-ext')._InsertLeave()")
 end
 
 return M
-

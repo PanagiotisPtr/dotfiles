@@ -11,6 +11,7 @@ return {
             vim.keymap.set("n", "<leader>ws", builtin.lsp_dynamic_workspace_symbols, {})
             vim.keymap.set("n", "<leader>ds", builtin.lsp_document_symbols, {})
             vim.keymap.set("n", "<leader>ic", builtin.lsp_incoming_calls, {})
+            vim.keymap.set("n", "<leader>im", builtin.lsp_implementations, {})
             vim.keymap.set("n", "<leader>rf", builtin.lsp_references, {})
         end,
     },

@@ -42,13 +42,36 @@ local function trigger_completion()
     local line_to_cursor = line:sub(1, pos[2])
     local textMatch = vim.fn.match(line_to_cursor, "\\k*$")
     local prefix = line_to_cursor:sub(textMatch + 1)
+
+    -- Safeguard: Check if prefix is valid
+    if not prefix or prefix == "" then
+        vim.notify("Invalid prefix for completion", vim.log.levels.WARN)
+        return
+    end
+
     local params = vim.lsp.util.make_position_params()
     local items = {}
+
     vim.lsp.buf_request(bufnr, "textDocument/completion", params, function(err, _, result)
-        if err or not result then
+        -- Safeguard: Handle errors
+        if err then
+            vim.notify("Error in LSP completion request: " .. err.message, vim.log.levels.ERROR)
             return
         end
+
+        -- Safeguard: Check if result is valid and has items
+        if not result or (type(result) == "table" and not result.items and #result == 0) then
+            vim.notify("Empty or invalid completion result", vim.log.levels.WARN)
+            return
+        end
+
+        -- Attempt to convert result to completion items
         local matches = vim.lsp.util.text_document_completion_list_to_complete_items(result, prefix)
+        if not matches or #matches == 0 then
+            vim.notify("No completion matches found", vim.log.levels.INFO)
+            return
+        end
+
         vim.list_extend(items, matches)
         vim.fn.complete(textMatch + 1, items)
     end)

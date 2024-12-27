@@ -1,15 +1,25 @@
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
-    lazypath,
-  })
-end
-vim.opt.rtp:prepend(lazypath)
+require("config.lazy")
+require("config.vim-options")
 
-require("vim-options")
-require("lazy").setup("plugins")
+vim.api.nvim_create_autocmd("TermOpen", {
+  group = vim.api.nvim_create_augroup("custom-term-open", { clear = true }),
+  callback = function()
+    vim.opt.number = false
+    vim.opt.relativenumber = false
+  end
+})
+
+local job_id = 0
+vim.keymap.set("n", "<leader>st", function()
+  vim.cmd.vnew()
+  vim.cmd.term()
+  vim.cmd.wincmd("J")
+  vim.api.nvim_win_set_height(0, 15)
+
+  job_id = vim.bo.channel
+end)
+
+-- example if you want to run custom commands
+-- vim.keymap.set("n", "<leader>example", function()
+--   vim.fn.chansend(job_id, { "echo 'hi'\r\n" })
+-- end)

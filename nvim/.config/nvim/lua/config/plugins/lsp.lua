@@ -19,6 +19,10 @@ return {
       local lspconfig = require("lspconfig")
       local capabilities = require('blink.cmp').get_lsp_capabilities()
       lspconfig.lua_ls.setup { capabilities = capabilities }
+      lspconfig.gopls.setup { capabilities = capabilities }
+      lspconfig.tsserver.setup { capabilities = capabilities }
+      lspconfig.rust_analyzer.setup { capabilities = capabilities }
+
 
       -- I hate this
       local lsp_ext = require("config.utils.lsp-ext")

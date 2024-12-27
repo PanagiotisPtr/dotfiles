@@ -18,10 +18,11 @@ return {
     config = function()
       local lspconfig = require("lspconfig")
       local capabilities = require('blink.cmp').get_lsp_capabilities()
+      -- use :help lspconfig-all to see LPSs available and how to install them
       lspconfig.lua_ls.setup { capabilities = capabilities }
-      lspconfig.gopls.setup { capabilities = capabilities }
       lspconfig.tsserver.setup { capabilities = capabilities }
-      lspconfig.rust_analyzer.setup { capabilities = capabilities }
+      -- lspconfig.rust_analyzer.setup { capabilities = capabilities }
+      -- lspconfig.gopls.setup { capabilities = capabilities }
 
 
       -- I hate this

@@ -1,7 +1,6 @@
 font-size = 24
 font-family = JetBrains Mono
 window-padding-color = background
-
 theme = catppuccin-mocha
 font-feature = -liga
 font-feature = -calt
